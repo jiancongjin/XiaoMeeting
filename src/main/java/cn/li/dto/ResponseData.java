@@ -1,7 +1,7 @@
 package cn.li.dto;
 
 public class ResponseData {
-    private int state;
+    private int status;
 
     private  String info;
 
@@ -10,24 +10,25 @@ public class ResponseData {
     public ResponseData(){
 
     }
-    public ResponseData(int state, String info) {
-        this.state = state;
+
+    public ResponseData(int status, String info) {
+        this.status = status;
         this.info = info;
     }
 
-    public ResponseData(int state, String info, Object object) {
+    public ResponseData(int status, String info, Object object) {
 
-        this.state = state;
+        this.status = status;
         this.info = info;
         this.object = object;
     }
 
-    public int getState() {
-        return state;
+    public int getStatus() {
+        return status;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getInfo() {

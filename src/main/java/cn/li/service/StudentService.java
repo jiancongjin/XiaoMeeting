@@ -11,8 +11,10 @@ public interface StudentService {
 
     public ResponseData register(String phone,String password,String studentNum);
 
-    public ResponseData login(String studentNum,String password);
+    public ResponseData login(String studentNum, String password, String imei);
 
     public ResponseData autoLogin(String token);
+
+    ResponseData resetPassword(String phone, String password);
 
 }

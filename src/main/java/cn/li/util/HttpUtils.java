@@ -1,5 +1,6 @@
 package cn.li.util;
 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -9,11 +10,13 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
+
 /**
  * 发送http请求
  *
  */
 public class HttpUtils {
+
     private static final String TARGETURL = "https://we.cqu.pt/api/others/student.php?key=STUDENTNUM";
 
     public static String sendGet(String studentNum){
@@ -28,8 +31,10 @@ public class HttpUtils {
             response = httpClient.execute(httpGet);
             System.out.println(response);
         }catch (IOException e1){
+
             e1.printStackTrace();
         }
+        if (response == null) return null;
         String result = null;
         try {
             //处理结果为字符串
@@ -38,6 +43,7 @@ public class HttpUtils {
                 result = EntityUtils.toString(entity);
             }
         }catch (Exception e){
+
             e.printStackTrace();
         }finally {
             try {

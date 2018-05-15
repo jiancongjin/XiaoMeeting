@@ -8,7 +8,7 @@ import cn.li.dto.ResponseData;
 public class ResponseDataUtil {
     public static synchronized ResponseData build(Integer status, String message, Object result){
         ResponseData responseData = new ResponseData();
-        responseData.setState(status);
+        responseData.setStatus(status);
         responseData.setInfo(message);
         responseData.setObject(result);
         return responseData;

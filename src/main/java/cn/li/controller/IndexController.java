@@ -3,6 +3,7 @@ package cn.li.controller;
 import cn.li.dto.ResponseData;
 import cn.li.entity.Student;
 import cn.li.service.StudentService;
+import cn.li.util.ResponseDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,9 @@ public class IndexController {
     public ResponseData  register2(String phone,String password,HttpSession httpSession){
         System.out.println("phone: "+phone+" password: "+password);
         Map<String,Object> map = (Map<String, Object>) httpSession.getAttribute("student");
+        if (map == null) {
+            return ResponseDataUtil.build(-1, "非法访问", null);
+        }
         String studentNum = (String) map.get("xh");
         System.out.println("学号： "+studentNum);
         return studentService.register(phone,password,studentNum);
@@ -36,15 +40,22 @@ public class IndexController {
     }
     @ResponseBody
     @RequestMapping(value = "/login" ,method = RequestMethod.POST)
-    public ResponseData login(String studentNum, String password){
+    public ResponseData login(String studentNum, String password, String imei) {
         System.out.println("studentNum"+studentNum+"--"+"password"+password);
-        return  studentService.login(studentNum,password);
+        return studentService.login(studentNum, password, imei);
     }
     @ResponseBody
     @RequestMapping("/autoLogin")
-    public ResponseData login(String token){
+    public ResponseData autoLogin(String token) {
         System.out.println("token:  "+token);
         return studentService.autoLogin(token);
+    }
+
+    @ResponseBody
+    @RequestMapping("/resetPassword")
+    public ResponseData resetPassword(@RequestParam(value = "telephone") String telephone, String password) {
+        System.out.println("telephone" + telephone + "--" + "password" + password);
+        return studentService.resetPassword(telephone, password);
     }
 
 }

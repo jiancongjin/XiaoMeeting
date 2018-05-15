@@ -1,7 +1,9 @@
 package cn.li.util;
 
+import cn.li.conf.XiaoMeetingConfig;
 import org.junit.Test;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -35,6 +37,30 @@ public class MD5 {
             return "";
         }
 
+    }
+
+    public static String getResult(String inputStr) {
+        System.out.println("=======加密前的数据:" + inputStr);
+        BigInteger bigInteger = null;
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] inputData = inputStr.getBytes();
+            md.update(inputData);
+            bigInteger = new BigInteger(md.digest());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("MD5加密后:" + bigInteger.toString(16));
+        return bigInteger.toString(16);
+    }
+
+    @Test
+    public void test() {
+        String str = "2016211892" + null + XiaoMeetingConfig.Key;
+        System.out.println("=======加密前的数据:" + str);
+
+        System.out.println("MD5加密后:" + MD5.md5Password(str));
     }
 
 }

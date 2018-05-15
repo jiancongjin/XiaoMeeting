@@ -4,9 +4,17 @@ import cn.li.entity.Student;
 import org.apache.ibatis.annotations.Param;
 
 public interface StudentDao {
-    public int addUser(Student student);
+    int addUser(Student student);
 
-    public Student findUserByStuNum(String studentNum,String password);
+    Student findUserByNumAndPwd(String studentNum, String password);
 
-    public Student findByToken(String token);
+    Student findByToken(String token);
+
+    Student findUserByStuNum(String studentNum);
+
+    Student findUserByPhone(String telephone);
+
+    int updateToken(Student student);
+
+    int updateStudent(Student student);
 }

@@ -8,13 +8,31 @@
         INSERT IGNORE INTO student(studentNum,passWord,name,telephone,token) VALUES (#{studentNum},#{passWord},#{name},#{telephone},#{token})
     </insert>
 
-    <select id="findUserByStuNum" resultType="cn.li.entity.Student">
-        select * from student where studentNum = #{0} and passWord=#{1}
+    <update id="updateStudent" parameterType="cn.li.entity.Student">
+        UPDATE student set studentNum = #{studentNum},passWord = #{passWord},name = #{name},grade = #{grade},telephone = #{telephone},sex = #{sex},
+        school = #{school},major = #{major},head_imag = #{head_imag},email = #{email},credit_score = #{credit_score},leader_state = #{leader_state},
+        token = #{token} WHERE studentNum = #{studentNum}
+    </update>
 
+    <update id="updateToken" parameterType="cn.li.entity.Student">
+          UPDATE student set token = #{token}  WHERE studentNum = #{studentNum}
+    </update>
+
+    <select id="findUserByNumAndPwd" resultType="cn.li.entity.Student">
+        select * from student where studentNum = #{0} and passWord=#{1}
     </select>
 
    <select id="findByToken" resultType="cn.li.entity.Student">
        SELECT *FROM student WHERE token = #{token}
    </select>
+
+    <select id="findUserByStuNum" resultType="cn.li.entity.Student">
+        SELECT *FROM student where studentNum = #{studentNum}
+    </select>
+
+    <select id=" findUserByPhone" resultType="cn.li.entity.Student">
+         SELECT *FROM student where telephone = #{telephone}
+    </select>
+
 
 </mapper>
