@@ -52,10 +52,17 @@ public class IndexController {
     }
 
     @ResponseBody
-    @RequestMapping("/resetPassword")
-    public ResponseData resetPassword(@RequestParam(value = "telephone") String telephone, String password) {
-        System.out.println("telephone" + telephone + "--" + "password" + password);
+    @RequestMapping(value = "/resetPassword",method = RequestMethod.POST)
+    public ResponseData resetPassword(@RequestParam(value = "phone") String telephone,@RequestParam(value = "password") String password) {
+        System.out.println("telephone:" + telephone + "--" + "password:" + password);
         return studentService.resetPassword(telephone, password);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/updateUserInfo",method = RequestMethod.POST)
+    public ResponseData updateUserInfo(Student student){
+        System.out.println(student);
+        return  studentService.updateUserInfo(student);
     }
 
 }

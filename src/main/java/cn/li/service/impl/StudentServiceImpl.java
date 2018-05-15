@@ -87,12 +87,17 @@ public class StudentServiceImpl implements StudentService {
                 return ResponseDataUtil.build(-3, "该学号已注册", null);
             }
             String result = HttpUtils.sendGet(studentNum);
-
+            if(result==null){
+                return ResponseDataUtil.build(-3,"sendGet未成功返回",result);
+            }
             System.out.println(result);
 
             //Map<String,Object> allData = JSON.parseObject(result,Map.class);
             JSONObject jsonObject = JSON.parseObject(result);
-            if (jsonObject.getInteger("status") != 200 || result == null || jsonObject == null) {//请求失败
+            if(jsonObject==null){
+                return ResponseDataUtil.build(-4,"jsonObject解析为成功",null);
+            }
+            if (jsonObject.getInteger("status") != 200 || result == null ) {//请求失败
                 return new ResponseData(-2, "网络请求异常");
             } else {
                 //Map<String,Object> temp = JSON.parseObject(allData.get("data").toString(),Map.class);
@@ -103,10 +108,10 @@ public class StudentServiceImpl implements StudentService {
                 //System.out.println("student"+"---->"+student);
                 Map<String, Object> map = student;
                 if (!name.equals(map.get("xm"))) {//请求学号对应名字与请求名字不符合
-                    return ResponseDataUtil.build(0, "信息错误", null);
+                    return ResponseDataUtil.build(0, "信息错误", result);
                 } else {//正确绑定情况
                     httpSession.setAttribute("student", map);
-                    return ResponseDataUtil.build(1, "正确", null);
+                    return ResponseDataUtil.build(1, "正确", result);
                 }
             }
         } else {
@@ -114,13 +119,21 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
-    public ResponseData resetPassword(String phone, String password) {
-        Student student = studentDao.findUserByPhone(phone);
-        if (student == null) {
-            return ResponseDataUtil.build(-1, "无效的电话号码", null);
+    public ResponseData resetPassword(String telephone, String password) {
+        if(StringUtils.isEmpty(telephone,password)){
+            Student student = studentDao.findUserByPhone(telephone);
+            if (student == null) {
+                return ResponseDataUtil.build(0, "无效的电话号码", null);
+            }
+            student.setPassWord(password);
+            studentDao.updatePassWord(student);
+            return ResponseDataUtil.build(1, "修改成功", null);
         }
-        student.setPassWord(password);
+        return ResponseDataUtil.build(-1,"参数不完整",null);
+    }
+
+    public ResponseData updateUserInfo(Student student) {
         studentDao.updateStudent(student);
-        return ResponseDataUtil.build(1, "修改成功", null);
+        return ResponseDataUtil.build(1,"更新成功",null);
     }
 }

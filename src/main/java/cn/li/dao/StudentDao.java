@@ -17,4 +17,6 @@ public interface StudentDao {
     int updateToken(Student student);
 
     int updateStudent(Student student);
+
+    int updatePassWord(Student student);
 }

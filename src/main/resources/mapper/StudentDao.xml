@@ -9,13 +9,16 @@
     </insert>
 
     <update id="updateStudent" parameterType="cn.li.entity.Student">
-        UPDATE student set studentNum = #{studentNum},passWord = #{passWord},name = #{name},grade = #{grade},telephone = #{telephone},sex = #{sex},
-        school = #{school},major = #{major},head_imag = #{head_imag},email = #{email},credit_score = #{credit_score},leader_state = #{leader_state},
-        token = #{token} WHERE studentNum = #{studentNum}
+        UPDATE student set name = #{name},grade = #{grade},telephone = #{telephone},sex = #{sex},
+        school = #{school},major = #{major},head_image = #{headImage},email = #{email},credit_score = #{creditScore},leader_state = #{leaderState}
+       WHERE studentNum = #{studentNum}
     </update>
 
     <update id="updateToken" parameterType="cn.li.entity.Student">
           UPDATE student set token = #{token}  WHERE studentNum = #{studentNum}
+    </update>
+    <update id="updatePassWord" parameterType="cn.li.entity.Student">
+        UPDATE student set passWord = #{passWord}  WHERE studentNum = #{studentNum}
     </update>
 
     <select id="findUserByNumAndPwd" resultType="cn.li.entity.Student">
@@ -30,7 +33,7 @@
         SELECT *FROM student where studentNum = #{studentNum}
     </select>
 
-    <select id=" findUserByPhone" resultType="cn.li.entity.Student">
+    <select id="findUserByPhone" resultType="cn.li.entity.Student" parameterType="java.lang.String">
          SELECT *FROM student where telephone = #{telephone}
     </select>
 

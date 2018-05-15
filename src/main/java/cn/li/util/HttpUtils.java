@@ -18,6 +18,7 @@ import java.io.IOException;
 public class HttpUtils {
 
     private static final String TARGETURL = "https://we.cqu.pt/api/others/student.php?key=STUDENTNUM";
+    //private static final String TARGETURL = "http://ip.taobao.com/service/getIpInfo.php?ip=STUDENTNUM";
 
     public static String sendGet(String studentNum){
         String url = TARGETURL.replace("STUDENTNUM",studentNum);
